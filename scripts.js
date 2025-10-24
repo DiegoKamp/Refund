@@ -6,6 +6,12 @@ const amount = document.getElementById("amount");
 const expense = document.getElementById("expense");
 const category = document.getElementById("category");
 
+// Seleciona os elementos da lista
+const expenseList = document.querySelector("ul");
+
+
+
+
 // Regex para aceitar apenas input numéricos
 amount.oninput = () => {
 
@@ -65,6 +71,41 @@ function expenseAdd(newExpense) {
     expenseItem.classList.add("expense");
 
     // Criação do ícone da categoria
+    const expenseIcon = document.createElement("img")
+
+    expenseIcon.setAttribute("src", `img/${newExpense.category_id}.svg`)
+    expenseIcon.setAttribute("alt", `Ícone de despesa do tipo ${newExpense.category_name}`)
+
+    // Criação da Informação da despesa
+    const expenseInfo = document.createElement("div");
+    expenseInfo.classList.add("expense-info");
+
+
+    const expenseName = document.createElement("strong");
+    expenseName.textContent = newExpense.expense;
+
+    const expenseCategory = document.createElement("span");
+    expenseCategory.textContent = newExpense.category_name;
+
+
+
+
+    /*
+    // Fazer usando apenas o innerHTML
+    // Usando o innerHTML
+    expenseInfo.innerHTML = `
+    <strong> ${expense.value}</strong>
+    <span> ${category.options[category.selectedIndex].text}</span>
+    `
+    */
+
+
+
+    // Adiciona o item na lista
+    expenseItem.append(expenseIcon); // Adicionando o ícone ao Item
+    expenseInfo.append(expenseName, expenseCategory) // Adicionando o nome e a categoria à despesa
+    expenseItem.append(expenseInfo); // Adicionando a informação com nome e categoria ao Item
+    expenseList.append(expenseItem); // Adicionando o Item à ul
 
 
 
