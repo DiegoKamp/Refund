@@ -66,6 +66,7 @@ function expenseAdd(newExpense) {
     // throw new Error("Erro de teste")
     // Lançando um erro para confirmar o fluxo
 
+
     // Criação do li para colocar na ul
     const expenseItem = document.createElement("li");
     expenseItem.classList.add("expense");
@@ -87,17 +88,15 @@ function expenseAdd(newExpense) {
     const expenseCategory = document.createElement("span");
     expenseCategory.textContent = newExpense.category_name;
 
+    // Criação da span com valor
+    const expenseAmount = document.createElement("span");
+    expenseAmount.classList.add("expense-amount");
+    expenseAmount.innerHTML = `<small>R$</small>${newExpense.amount.toUpperCase().replace("R$", "")}`
 
+    // expenseAmount.innerHTML = `<small>R$</small>${amount.value}`
+    // Não seria mais fácil escrever dessa forma ?
 
-
-    /*
-    // Fazer usando apenas o innerHTML
-    // Usando o innerHTML
-    expenseInfo.innerHTML = `
-    <strong> ${expense.value}</strong>
-    <span> ${category.options[category.selectedIndex].text}</span>
-    `
-    */
+    // Criação do ícone remover
 
 
 
@@ -105,8 +104,32 @@ function expenseAdd(newExpense) {
     expenseItem.append(expenseIcon); // Adicionando o ícone ao Item
     expenseInfo.append(expenseName, expenseCategory) // Adicionando o nome e a categoria à despesa
     expenseItem.append(expenseInfo); // Adicionando a informação com nome e categoria ao Item
+    expenseItem.append(expenseAmount); // Adicionando o valor ao Item
     expenseList.append(expenseItem); // Adicionando o Item à ul
 
+
+
+    /*
+        // Usando o innerHTML
+    
+        const expenseItem = document.createElement("li");
+        expenseItem.classList.add("expense");
+        expenseItem.innerHTML =
+          `
+          <img src="img/${newExpense.category_id}.svg" alt="Ícone de despesa do tipo ${newExpense.category_name}" />
+    
+          <div class="expense-info">
+            <strong>${newExpense.expense}</strong>
+            <span>${newExpense.category_name}</span>
+          </div>
+    
+          <span class="expense-amount"><small>R$</small>${newExpense.amount}</span>
+    
+          <img src="./img/remove.svg" alt="remover" class="remove-icon" />
+          `
+        expenseList.append(expenseItem);
+    
+    */
 
 
   } catch (error) {
