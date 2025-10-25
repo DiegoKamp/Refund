@@ -2,14 +2,14 @@
 
 // Seleciona os elementos do formulário
 const form = document.querySelector("form")
-const amount = document.getElementById("amount");
 const expense = document.getElementById("expense");
 const category = document.getElementById("category");
-const expenseQuantity = document.querySelector("aside header p span");
-const expenseTotal = document.querySelector("aside header h2");
+const amount = document.getElementById("amount");
 
 // Seleciona os elementos da lista
 const expenseList = document.querySelector("ul");
+const expenseQuantity = document.querySelector("aside header p span");
+const expenseTotal = document.querySelector("aside header h2");
 
 // Regex para aceitar apenas input numéricos
 amount.oninput = () => {
@@ -54,6 +54,7 @@ form.onsubmit = (event) => {
   //console.log(newExpense)
 
   expenseAdd(newExpense)
+
 }
 
 // Criação do Item
@@ -119,19 +120,24 @@ function expenseAdd(newExpense) {
     const expenseItem = document.createElement("li");
     expenseItem.classList.add("expense");
     expenseItem.innerHTML =
-           `
+    `
            <img src="img/${newExpense.category_id}.svg" alt="Ícone de despesa do tipo ${newExpense.category_name}" />
            <div class="expense-info">
              <strong>${newExpense.expense}</strong>
              <span>${newExpense.category_name}</span>
-           </div>
-           <span class="expense-amount"><small>R$</small>${newExpense.amount}</span>
+             </div>
+             <span class="expense-amount"><small>R$</small>${newExpense.amount}</span>
            <img src="./img/remove.svg" alt="remover" class="remove-icon" />
            `
            expenseList.append(expenseItem);
      */
 
+    // Limpa o formulário
+    formClear();
+
+    // Atualiza os totais
     updateTotals()
+
 
   } catch (error) {
     alert("Não foi possível lançar a despesa")
@@ -203,9 +209,32 @@ function updateTotals() {
 
 // Captura o clique do botão remover
 
+expenseList.addEventListener("click", function (event) {
+  if (event.target.classList.contains("remove-icon")) {
 
+    // Obtendo a li pai do elemento clicado
+    const item = event.target.closest(".expense")
 
+    // Remove o item
+    item.remove();
 
+    // Atualiza o total após retirar
+    updateTotals();
+
+  }
+
+})
+
+function formClear() {
+  // Limpa os inputs
+  expense.value = "";
+  category.value = "";
+  amount.value = "";
+
+  // Volta o foco para o nome da despesa
+  expense.focus();
+
+}
 
 
 
